@@ -2,14 +2,15 @@ package controller
 
 import (
 	"database/sql"
-	"fmt"
+	//"fmt"
 	"net/http"
 
 	//"strconv"
-	"log"
+	//"log"
 
 	"github.com/gin-gonic/gin"
-	//"github.com/swaggo/swag/example/celler/httputil"
+	"github.com/swaggo/swag/example/celler/httputil"
+	"github.com/swaggo/swag/example/celler/model"
 	//"github.com/swaggo/swag/example/celler/model"
 )
 
@@ -22,34 +23,12 @@ type List struct {
 
 var database *sql.DB
 
-func (c *List) ListAccounts(ctx *gin.Context) {
-	rows, err := database.Query("select * from Lists")
-
+func (c *Controller) ListAccounts(ctx *gin.Context) {
+	q := ctx.Request.URL.Query().Get("q")
+	accounts, err := model.AccountsAll(q)
 	if err != nil {
-		log.Println(err)
+		httputil.NewError(ctx, http.StatusNotFound, err)
+		return
 	}
-	defer rows.Close()
-
-	lists := []List{}
-
-	for rows.Next() {
-
-		p := List{
-			Id:        0,
-			Full_name: "",
-			Birthday:  "",
-			Address:   "",
-		}
-
-		err := rows.Scan(&p.Id, &p.Full_name, &p.Birthday, &p.Address)
-		p.Birthday = p.Birthday[0:10]
-
-		if err != nil {
-			fmt.Println(err)
-			continue
-		}
-
-		lists = append(lists, p)
-	}
-	ctx.JSON(http.StatusOK, lists)
+	ctx.JSON(http.StatusOK, accounts)
 }
