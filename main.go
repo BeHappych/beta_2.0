@@ -8,7 +8,7 @@ import (
 	//"net/http"
 	//"./controller"
 	//"example.com/m/go/pkg/mod/github.com/swaggo/swag/example/celler@v0.0.0-20230830154040-e9d0aa572ea5/controller"
-	"example.com/m/go/pkg/mod/github.com/swaggo/swag/example/celler@v0.0.0-20230830154040-e9d0aa572ea5/controller"
+	//"example.com/m/go/pkg/mod/github.com/swaggo/swag/example/celler@v0.0.0-20230830154040-e9d0aa572ea5/controller"
 	"github.com/gin-gonic/gin"
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
